@@ -1,4 +1,8 @@
 # 💤 LazyVim
 
-A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
-Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
+There contains my whole neovim/terminal configuration which includes:
+
+> Neovim v0.11.4
+> LazyVim
+> Alacritty for windows
+> Kitty for linux
