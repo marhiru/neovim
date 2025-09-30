@@ -27,16 +27,16 @@ return {
         end,
     },
     {
-        "metalelf0/base16-black-metal-scheme",
-        name = "base16-black-metal",
+        "metalelf0/black-metal-theme-neovim",
+        name = "black-metal",
         config = function()
-            require("base16-black-metal-scheme").setup({})
+            require("black-metal").setup({})
         end,
     },
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "ayu-dark",
+            colorscheme = "black-metal",
         },
     },
 }
