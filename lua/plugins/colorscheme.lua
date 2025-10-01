@@ -1,17 +1,5 @@
 return {
     {
-        "Shatur/neovim-ayu",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.o.background = "dark"
-            require("ayu").setup({
-                mirage = false,
-            })
-            vim.cmd("colorscheme ayu-dark")
-        end,
-    },
-    {
         "rose-pine/neovim",
         name = "rose-pine",
         config = function()

@@ -12,22 +12,11 @@ return {
                 -- sair do insert
                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
 
-                --- salvar
                 vim.cmd("w")
 
                 -- formatar se houver LSP
                 if has_lsp_client(0) then
-                    vim.lsp.buf.format({
-                        async = true,
-                        bufnr = 0,
-                        callback = function()
-                            vim.cmd("w")
-                        end,
-                    })
-                else
-                    if pcall(vim.cmd, "Neoformat") then
-                        vim.cmd("w")
-                    end
+                    vim.lsp.buf.format({ async = true })
                 end
             end, { noremap = true, silent = true, desc = "Escape + Save + Format" })
         end,
