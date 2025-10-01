@@ -79,7 +79,7 @@ Clone this repo into your Neovim config folder:
 
 ```bash
 # Linux
-git clone https://github.com/yourusername/nvim ~/.config/nvim
+git clone https://github.com/marhiru/neovim ~/.config/nvim
 
 # Windows (PowerShell)
-git clone https://github.com/yourusername/nvim $env:LOCALAPPDATA\nvim
+git clone https://github.com/marhiru/neovim $env:LOCALAPPDATA\nvim
