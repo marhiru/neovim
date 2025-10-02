@@ -1,17 +1,5 @@
 return {
     {
-        "Shatur/neovim-ayu",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.o.background = "dark"
-            require("ayu").setup({
-                mirage = false,
-            })
-            vim.cmd("colorscheme ayu-dark")
-        end,
-    },
-    {
         "rose-pine/neovim",
         name = "rose-pine",
         config = function()
@@ -28,9 +16,21 @@ return {
     },
     {
         "metalelf0/black-metal-theme-neovim",
+<<<<<<< HEAD
         name = "black-metal",
         config = function()
             require("black-metal").setup({})
+=======
+        lazy = false,
+        name = "black-metal",
+        config = function()
+            require("black-metal").setup({
+                theme = "taake",
+                variant = "dark",
+                alt_bg = false,
+            })
+            require("black-metal").load()
+>>>>>>> e2f0f1c932c1ef100eb7bceb8ad7ccfa48157d5f
         end,
     },
     {
