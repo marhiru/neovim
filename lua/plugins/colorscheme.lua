@@ -16,11 +16,6 @@ return {
     },
     {
         "metalelf0/black-metal-theme-neovim",
-<<<<<<< HEAD
-        name = "black-metal",
-        config = function()
-            require("black-metal").setup({})
-=======
         lazy = false,
         name = "black-metal",
         config = function()
@@ -30,13 +25,6 @@ return {
                 alt_bg = false,
             })
             require("black-metal").load()
->>>>>>> e2f0f1c932c1ef100eb7bceb8ad7ccfa48157d5f
         end,
-    },
-    {
-        "LazyVim/LazyVim",
-        opts = {
-            colorscheme = "black-metal",
-        },
     },
 }
