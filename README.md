@@ -1,4 +1,12 @@
 
+<<<<<<< HEAD
+There contains my whole neovim/terminal configuration which includes:
+
+- Neovim v0.11.4
+- LazyVim
+- Alacritty for windows
+- Kitty for linux
+=======
 # 💤 My Neovim Configs  
 
 Welcome to my personal Neovim setup! 🚀  
@@ -83,3 +91,4 @@ git clone https://github.com/marhiru/neovim ~/.config/nvim
 
 # Windows (PowerShell)
 git clone https://github.com/marhiru/neovim $env:LOCALAPPDATA\nvim
+>>>>>>> e2f0f1c932c1ef100eb7bceb8ad7ccfa48157d5f

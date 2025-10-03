@@ -27,10 +27,4 @@ return {
             require("black-metal").load()
         end,
     },
-    {
-        "LazyVim/LazyVim",
-        opts = {
-            colorscheme = "black-metal",
-        },
-    },
 }
