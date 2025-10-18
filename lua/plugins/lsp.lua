@@ -8,30 +8,27 @@ return {
         require("mason").setup({})
         require("mason-lspconfig").setup({
             automatic_enable = {
-                "ts_ls",
+                "vtsls",
                 "rust-analyzer",
                 "ols",
-                "ruff_lsp", -- Primary for linting/formatting
-                "pyright",  -- Type checking
+                "ruff",
+                "pyright",
                 "zls",
                 "clangd",
                 "lua_ls",
             },
             ensure_installed = {
-                "ts_ls",
-                "ruff_lsp",
+                "vtsls",
+                "ruff",
                 "pyright",
-                -- ruff is a dependency of ruff_lsp, no need to list separately
             },
             handlers = {
-                -- Default handler
                 function(server_name)
                     require("lspconfig")[server_name].setup({
-                        on_attach = attach, -- Your existing function
+                        on_attach = attach,
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
                     })
                 end,
-                -- Pyright: Type checking only
                 pyright = function()
                     local python_path = vim.fn.expand(".venv/bin/python")
                     if not vim.fn.filereadable(python_path) then
@@ -59,16 +56,13 @@ return {
                         },
                     })
                 end,
-                -- Ruff LSP: Linting and formatting via LSP
-                ruff_lsp = function()
-                    require("lspconfig").ruff_lsp.setup({
+                ruff = function()
+                    require("lspconfig").ruff.setup({
                         on_attach = function(client, bufnr)
                             attach(client, bufnr)
-                            -- Ensure formatting is enabled
                             client.server_capabilities.documentFormattingProvider = true
-                            -- Test formatting to confirm
                             if client.server_capabilities.documentFormattingProvider then
-                                vim.lsp.buf.format({ bufnr = bufnr, name = "ruff_lsp", timeout_ms = 500 })
+                                vim.lsp.buf.format({ bufnr = bufnr, name = "ruff", timeout_ms = 500 })
                             end
                         end,
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
