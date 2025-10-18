@@ -2,9 +2,7 @@ return {
     "mason-org/mason-lspconfig.nvim",
     dependencies = {
         { "mason-org/mason.nvim" },
-        {
-            "neovim/nvim-lspconfig",
-        },
+        { "neovim/nvim-lspconfig" },
     },
     config = function()
         require("mason").setup({})
@@ -13,57 +11,77 @@ return {
                 "ts_ls",
                 "rust-analyzer",
                 "ols",
-                "ruff_lsp", -- Handles Python diagnostics and formatting
+                "ruff_lsp", -- Primary for linting/formatting
+                "pyright",  -- Type checking
                 "zls",
                 "clangd",
                 "lua_ls",
-                exclude = {
-                    "pyright", -- Keep Pyright excluded
-                },
             },
             ensure_installed = {
                 "ts_ls",
-                "ruff_lsp", -- Ensure Ruff is installed
+                "ruff_lsp",
+                "pyright",
+                -- ruff is a dependency of ruff_lsp, no need to list separately
             },
-            automatic_installation = { exclude = { "pyright" } }, -- Extra safety
             handlers = {
-                -- Default handler for most servers
+                -- Default handler
                 function(server_name)
                     require("lspconfig")[server_name].setup({
-                        on_attach = function(client, bufnr)
-                            -- Call your existing attach function
-                            attach(client, bufnr)
-                            -- Add formatting command only for servers that support it
-                            if client.server_capabilities.documentFormattingProvider then
-                                vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-                                    vim.lsp.buf.format({ bufnr = bufnr })
-                                end, { desc = "Format current buffer with LSP" })
-                            end
-                        end,
-                        capabilities = require("cmp_nvim_lsp").default_capabilities(), -- For nvim-cmp
+                        on_attach = attach, -- Your existing function
+                        capabilities = require("cmp_nvim_lsp").default_capabilities(),
                     })
                 end,
-                -- Explicit Ruff handler for formatting
+                -- Pyright: Type checking only
+                pyright = function()
+                    local python_path = vim.fn.expand(".venv/bin/python")
+                    if not vim.fn.filereadable(python_path) then
+                        python_path = vim.fn.exepath("python3") or vim.fn.exepath("python")
+                    end
+                    require("lspconfig").pyright.setup({
+                        on_attach = function(client, bufnr)
+                            attach(client, bufnr)
+                            client.server_capabilities.documentFormattingProvider = false
+                            client.server_capabilities.documentRangeFormattingProvider = false
+                        end,
+                        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                        settings = {
+                            pyright = {
+                                disableOrganizeImports = true, -- Let ruff_lsp handle imports
+                            },
+                            python = {
+                                analysis = {
+                                    diagnosticMode = "openFilesOnly",
+                                    typeCheckingMode = "basic",
+                                    useLibraryCodeForTypes = true,
+                                },
+                                pythonPath = python_path,
+                            },
+                        },
+                    })
+                end,
+                -- Ruff LSP: Linting and formatting via LSP
                 ruff_lsp = function()
                     require("lspconfig").ruff_lsp.setup({
                         on_attach = function(client, bufnr)
                             attach(client, bufnr)
-                            -- Ensure Ruff can format
+                            -- Ensure formatting is enabled
                             client.server_capabilities.documentFormattingProvider = true
-                            vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-                                vim.lsp.buf.format({ bufnr = bufnr })
-                            end, { desc = "Format current buffer with Ruff" })
-                            -- Optional: Auto-format on save
-                            vim.api.nvim_create_autocmd("BufWritePre", {
-                                buffer = bufnr,
-                                callback = function()
-                                    vim.lsp.buf.format({ bufnr = bufnr })
-                                end,
-                            })
+                            -- Test formatting to confirm
+                            if client.server_capabilities.documentFormattingProvider then
+                                vim.lsp.buf.format({ bufnr = bufnr, name = "ruff_lsp", timeout_ms = 500 })
+                            end
                         end,
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
-                        settings = {
-                            args = { "--line-length=88" }, -- Customize Ruff
+                        init_options = {
+                            settings = {
+                                lint = {
+                                    enable = true,
+                                    select = { "E", "F", "I" }, -- Include import lints
+                                },
+                                format = {
+                                    enable = true,
+                                },
+                            },
                         },
                     })
                 end,
