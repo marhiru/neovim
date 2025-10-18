@@ -1,7 +1,9 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
 
+vim.opt.shiftwidth = 4
 vim.opt.clipboard = "unnamedplus"
+vim.lsp.inlay_hint.enable(false, nil)
 
 ------------
 -- MACROS --
