@@ -24,14 +24,14 @@ return {
         end,
     },
 
-    {
-        "dgox16/oldworld.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.cmd([[colorscheme oldworld]])
-        end,
-    },
+    -- {
+    --     "dgox16/oldworld.nvim",
+    --     lazy = false,
+    --     priority = 1000,
+    --     config = function()
+    --         vim.cmd([[colorscheme oldworld]])
+    --     end,
+    -- },
     -- {
     --     "chrsm/paramount-ng.nvim",
     --     dependencies = {
@@ -51,11 +51,11 @@ return {
         name = "black-metal",
         config = function()
             require("black-metal").setup({
-                theme = "khold",
+                theme = "immortal",
                 variant = "dark",
                 alt_bg = false,
             })
-            -- require("black-metal").load()
+            require("black-metal").load()
         end,
     },
     {
