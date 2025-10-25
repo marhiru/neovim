@@ -45,24 +45,33 @@ return {
     --         vim.api.nvim_set_hl(0, "NormalNC", { bg = "#0f0f17" })
     --     end,
     -- },
+    -- {
+    --     "metalelf0/black-metal-theme-neovim",
+    --     lazy = false,
+    --     name = "black-metal",
+    --     config = function()
+    --         require("black-metal").setup({
+    --             theme = "immortal",
+    --             variant = "dark",
+    --             alt_bg = false,
+    --         })
+    --         require("black-metal").load()
+    --     end,
+    -- },
+    -- {
+    --     "ellisonleao/gruvbox.nvim",
+    --     config = true,
+    --     opts = {},
+    -- },
     {
-        "metalelf0/black-metal-theme-neovim",
-        lazy = false,
-        name = "black-metal",
-        config = function()
-            require("black-metal").setup({
-                theme = "immortal",
-                variant = "dark",
-                alt_bg = false,
-            })
-            require("black-metal").load()
-        end,
-    },
-    {
-        "ellisonleao/gruvbox.nvim",
-        config = true,
+        "gbprod/nord.nvim",
+        name = "nord",
         opts = {},
-    },
+        config = function()
+            require("nord").setup()
+            require("nord").load()
+        end
+    }
     -- {
     --     "LazyVim/LazyVim",
     --     opts = {
