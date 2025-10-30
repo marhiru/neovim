@@ -33,6 +33,10 @@ return {
     {
         "deparr/tairiki.nvim",
         lazy = false,
+    },
+    {
+        "p00f/alabaster.nvim",
+        lazy = false,
         priority = 1000,
     },
     {
@@ -68,7 +72,7 @@ return {
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "tairiki",
+            colorscheme = "alabaster",
         },
     },
 }
