@@ -7,17 +7,15 @@ return {
     config = function()
         require("mason").setup({})
         require("mason-lspconfig").setup({
-            automatic_enable = {
+            ensure_installed = {
                 "vtsls",
                 "rust-analyzer",
                 "ols",
                 "ruff",
                 "pyright",
-                "zls",
                 "clangd",
                 "lua_ls",
-            },
-            ensure_installed = {
+                "zls",
                 "vtsls",
                 "ruff",
                 "pyright",
