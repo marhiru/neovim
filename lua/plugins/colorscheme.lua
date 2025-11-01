@@ -37,6 +37,10 @@ return {
     {
         "p00f/alabaster.nvim",
         lazy = false,
+    },
+    {
+        "olivercederborg/poimandres.nvim",
+        lazy = false,
         priority = 1000,
     },
     {
@@ -72,7 +76,7 @@ return {
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "alabaster",
+            colorscheme = "poimandres",
         },
     },
 }
