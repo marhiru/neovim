@@ -5,12 +5,7 @@ return {
         config = function()
             require("rose-pine").setup({
                 disable_italics = true,
-                disable_float_background = true,
-                highlight_groups = {
-                    Delimiter = { fg = "iris" },
-                    Normal = { bg = "#090413" },
-                    NormalNC = { bg = "#090413" },
-                },
+                disable_background = true,
             })
         end,
     },
@@ -36,6 +31,10 @@ return {
     },
     {
         "p00f/alabaster.nvim",
+        lazy = false,
+    },
+    {
+        "olivercederborg/poimandres.nvim",
         lazy = false,
         priority = 1000,
     },
@@ -69,10 +68,32 @@ return {
             -- require("nord").load()
         end
     },
-    {
-        "LazyVim/LazyVim",
-        opts = {
-            colorscheme = "alabaster",
-        },
-    },
+    -- {
+    --     "sainnhe/sonokai",
+    --     name = "sonokai",
+    --     config = function()
+    --         vim.g.sonokai_style = "andromeda"
+    --         vim.g.sonokai_enable_italic = 1
+    --         vim.g.sonokai_transparent_background = 0
+    --         vim.g.sonokai_better_performance = 1
+    --
+    --         -- vim.cmd.colorscheme("sonokai")
+    --         --
+    --         local custom_bg = "#0f0f10"
+    --
+    --         vim.api.nvim_set_hl(0, "Normal", { bg = custom_bg })
+    --         vim.api.nvim_set_hl(0, "NormalNC", { bg = custom_bg })
+    --         vim.api.nvim_set_hl(0, "SignColumn", { bg = custom_bg })
+    --         vim.api.nvim_set_hl(0, "LineNr", { bg = custom_bg })
+    --         vim.api.nvim_set_hl(0, "FoldColumn", { bg = custom_bg })
+    --         vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = custom_bg })
+    --         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#141414" })
+    --     end,
+    -- }
+    -- {
+    --     "LazyVim/LazyVim",
+    --     opts = {
+    --         colorscheme = "sonokai",
+    --     },
+    -- },
 }
