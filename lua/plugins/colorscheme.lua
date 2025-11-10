@@ -28,6 +28,10 @@ return {
     {
         "deparr/tairiki.nvim",
         lazy = false,
+        config = function()
+            require("tairiki").setup({})
+            vim.cmd("colorscheme tairiki")
+        end,
     },
     {
         "p00f/alabaster.nvim",
@@ -47,16 +51,15 @@ return {
         lazy = false,
         name = "black-metal",
         config = function()
-            require("black-metal").setup({
-                theme = "immortal",
-                variant = "dark",
-                alt_bg = false,
-            })
+            require("black-metal").setup({})
+            -- vim.cmd("colorscheme bathory")
         end,
     },
     {
         "ellisonleao/gruvbox.nvim",
-        config = true,
+        config = function()
+            require("gruvbox").setup({})
+        end,
         opts = {},
     },
     {
