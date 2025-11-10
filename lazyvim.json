@@ -1,5 +1,6 @@
 {
   "extras": [
+<<<<<<< HEAD
     "lazyvim.plugins.extras.ai.copilot",
     "lazyvim.plugins.extras.coding.yanky",
     "lazyvim.plugins.extras.editor.mini-diff",
@@ -25,6 +26,13 @@
   "install_version": 8,
   "news": {
     "NEWS.md": "11866"
+=======
+    "lazyvim.plugins.extras.editor.neo-tree"
+  ],
+  "install_version": 8,
+  "news": {
+    "NEWS.md": "10960"
+>>>>>>> 55d50a5 (fix: omarchyh neovim)
   },
   "version": 8
 }

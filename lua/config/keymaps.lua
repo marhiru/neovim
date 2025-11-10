@@ -1,6 +1,7 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+<<<<<<< HEAD
 local map = LazyVim.safe_keymap_set
 
 map({ "n", "i" }, "<C-s>", function()
@@ -50,3 +51,5 @@ vim.keymap.set("n", "<leader>rw", function()
     end
     replace_next()
 end, { desc = "Sequential replace via Flash" })
+=======
+>>>>>>> 55d50a5 (fix: omarchyh neovim)

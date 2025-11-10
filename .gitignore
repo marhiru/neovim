@@ -6,4 +6,7 @@ debug
 foo.*
 *.log
 data
+<<<<<<< HEAD
 *.json
+=======
+>>>>>>> 55d50a5 (fix: omarchyh neovim)

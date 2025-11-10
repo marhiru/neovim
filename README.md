@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 There contains my whole neovim/terminal configuration which includes:
@@ -92,3 +93,9 @@ git clone https://github.com/marhiru/neovim ~/.config/nvim
 # Windows (PowerShell)
 git clone https://github.com/marhiru/neovim $env:LOCALAPPDATA\nvim
 >>>>>>> e2f0f1c932c1ef100eb7bceb8ad7ccfa48157d5f
+=======
+# 💤 LazyVim
+
+A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
+Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
+>>>>>>> 55d50a5 (fix: omarchyh neovim)
