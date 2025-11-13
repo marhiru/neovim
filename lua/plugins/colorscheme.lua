@@ -5,7 +5,6 @@ return {
         config = function()
             require("rose-pine").setup({
                 disable_italics = true,
-                disable_background = true,
             })
         end,
     },
@@ -30,7 +29,6 @@ return {
         lazy = false,
         config = function()
             require("tairiki").setup({})
-            vim.cmd("colorscheme tairiki")
         end,
     },
     {
