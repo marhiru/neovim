@@ -8,6 +8,5 @@ return {
       accent = '#D19EBC',
       contrast = 0.3,
     })
-    vim.cmd('colorscheme xeno-pink-haze')
   end,
 }
