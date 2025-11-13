@@ -13,6 +13,7 @@ return {
                 hidden = true,
             },
         },
-        scroll = { enabled = false }
+        scroll = { enabled = false },
+        indent = { enabled = false }
     },
 }

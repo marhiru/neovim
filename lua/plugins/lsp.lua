@@ -20,6 +20,19 @@ return {
                 "ruff",
                 "pyright",
             },
+            automatic_enable = {
+                "vtsls",
+                "rust-analyzer",
+                "ols",
+                "ruff",
+                "pyright",
+                "clangd",
+                "lua_ls",
+                "zls",
+                "vtsls",
+                "ruff",
+                "pyright",
+            },
             handlers = {
                 function(server_name)
                     require("lspconfig")[server_name].setup({
