@@ -61,12 +61,6 @@ return {
         opts = {},
     },
     {
-        "stevedylandev/darkmatter-nvim",
-        lazy = false,
-        priority = 1000,
-        opts = {},
-    },
-    {
         "gbprod/nord.nvim",
         name = "nord",
         opts = {},
