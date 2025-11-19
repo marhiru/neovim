@@ -66,7 +66,6 @@ return {
         opts = {},
         config = function()
             require("nord").setup()
-            -- require("nord").load()
         end
     },
     -- {
@@ -91,10 +90,10 @@ return {
     --         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#141414" })
     --     end,
     -- }
-    -- {
-    --     "LazyVim/LazyVim",
-    --     opts = {
-    --         colorscheme = "sonokai",
-    --     },
-    -- },
+    {
+        "LazyVim/LazyVim",
+        opts = {
+            colorscheme = "tokyonight-night",
+        },
+    },
 }
