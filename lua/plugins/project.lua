@@ -12,6 +12,6 @@ return {
         })
 
         -- Optional integration with telescope
-        pcall(require("telescope").load_extension, "projects")
+        pcall(require("fzf-lua").load_extension, "projects")
     end,
 }
