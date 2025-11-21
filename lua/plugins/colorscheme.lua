@@ -68,6 +68,14 @@ return {
             require("nord").setup()
         end
     },
+    {
+    'scozu/karasu',
+    lazy = false,
+    priority = 1000,
+    config = function()
+        require('karasu').setup()
+    end
+    },
     -- {
     --     "sainnhe/sonokai",
     --     name = "sonokai",
@@ -93,7 +101,7 @@ return {
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "tokyonight-night",
+            colorscheme = "karasu",
         },
     },
 }
