@@ -11,12 +11,10 @@ return {
                 "vtsls",
                 "rust-analyzer",
                 "ols",
-                "gopls",
                 "ruff",
                 "pyright",
                 "clangd",
                 "lua_ls",
-                "zls",
                 "vtsls",
                 "ruff",
                 "pyright",
@@ -25,12 +23,10 @@ return {
                 "vtsls",
                 "rust-analyzer",
                 "ols",
-                "gopls",
                 "ruff",
                 "pyright",
                 "clangd",
                 "lua_ls",
-                "zls",
                 "vtsls",
                 "ruff",
                 "pyright",
@@ -40,6 +36,12 @@ return {
                     require("lspconfig")[server_name].setup({
                         on_attach = attach,
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                    })
+                    vim.api.nvim_create_augroup("BufWritePre", {
+                        pattern = { "*.zig", "*.zon" },
+                        callback = function()
+                            vim.lsp.buf.format()
+                        end
                     })
                 end,
                 pyright = function()
@@ -91,6 +93,18 @@ return {
                             },
                         },
                     })
+                end,
+                zls = function()
+                    require("lspconfig").zls.setup {
+                        cmd = "/usr/bin/zls",
+                        settings = {
+                            zls = {
+                                -- https://zigtools.org/zls/guides/build-on-save/
+                                semantic_tokens = "partial",
+                                zig_exe_path = "/usr/bin/zig"
+                            }
+                        }
+                    }
                 end,
             },
         })
