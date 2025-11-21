@@ -1,4 +1,5 @@
 return {
-    { "stevearc/conform.nvim", enabled = false },
-    { "mason-lspconfig.nvim",  enabled = false },
+    { "stevearc/conform.nvim",          enabled = false },
+    { "mason-org/mason-lspconfig.nvim", enabled = false },
+    { "nvim-telescope/telescope.nvim",  enabled = false }
 }
