@@ -11,7 +11,7 @@ end, { noremap = true, silent = true, desc = "Save and format" })
 
 -- Telescope live_grep mapped to <Space>m
 vim.keymap.set("n", "<leader>m", function()
-    require("telescope.builtin").live_grep()
+    require("fzf-lua").live_grep()
 end, { desc = "Search text (live_grep)" })
 
 vim.keymap.set("n", "<leader>cw", function()
