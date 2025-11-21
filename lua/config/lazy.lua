@@ -16,7 +16,6 @@ vim.opt.rtp:prepend(lazypath)
 vim.diagnostic.open_float()
 
 require("lazy").setup({
-    { "nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate" },
     spec = {
         { "LazyVim/LazyVim", import = "lazyvim.plugins" },
         { import = "plugins" },
