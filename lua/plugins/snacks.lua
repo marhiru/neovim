@@ -4,13 +4,13 @@ return {
         picker = {
             sources = {
                 files = {
-                    hidden = true,
+                    hidden = false,
                 },
             },
         },
         explorer = {
             files = {
-                hidden = true,
+                hidden = false,
             },
         },
         scroll = { enabled = false },
