@@ -92,7 +92,7 @@ return {
                                 },
                             },
                         },
-                    })
+                        })
                 end,
                 zls = function()
                     require("lspconfig").zls.setup {
