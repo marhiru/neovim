@@ -58,7 +58,7 @@ return {
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
                         settings = {
                             pyright = {
-                                disableOrganizeImports = true, -- Let ruff_lsp handle imports
+                                disableOrganizeImports = true,
                             },
                             python = {
                                 analysis = {
@@ -72,20 +72,26 @@ return {
                     })
                 end,
                 ruff = function()
+                    local python_path = vim.fn.expand(".venv/bin/python")
+                    if not vim.fn.filereadable(python_path) then
+                        python_path = vim.fn.exepath("python3") or vim.fn.exepath("python")
+                    end
                     require("lspconfig").ruff.setup({
                         on_attach = function(client, bufnr)
                             attach(client, bufnr)
                             client.server_capabilities.documentFormattingProvider = true
                             if client.server_capabilities.documentFormattingProvider then
-                                vim.lsp.buf.format({ bufnr = bufnr, name = "ruff", timeout_ms = 500 })
+                                vim.lsp.buf.format({ bufnr = bufnr, name = "ruff", timeout_ms = 200 })
                             end
                         end,
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
                         init_options = {
                             settings = {
+                                interpreter = python_path,
                                 lint = {
                                     enable = true,
-                                    select = { "E", "F", "I" }, -- Include import lints
+                                    select = { "E", "F", "I", "F841" },
+                                    ignore = {}
                                 },
                                 format = {
                                     enable = true,
