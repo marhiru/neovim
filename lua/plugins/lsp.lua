@@ -15,7 +15,6 @@ return {
                 "pyright",
                 "clangd",
                 "lua_ls",
-                "vtsls",
                 "ruff",
                 "pyright",
                 "vue-language-server",
@@ -28,7 +27,6 @@ return {
                 "pyright",
                 "clangd",
                 "lua_ls",
-                "vtsls",
                 "ruff",
                 "pyright",
                 "vue-language-server",
@@ -44,6 +42,32 @@ return {
                         callback = function()
                             vim.lsp.buf.format()
                         end
+                    })
+                end,
+                vtsls = function()
+                    require("lspconfig").vtsls.setup({
+                        on_attach = function(client, bufnr)
+                            attach(client, bufnr)
+                            -- When in a .vue file the token highlight will be disabled
+                            if vim.bo.filetype == "vue" then
+                                if client.server_capabilities.semanticTokensProvider then
+                                    client.server_capabilities.semanticTokensProvider = nil
+                                end
+                            end
+                        end
+                    })
+                end,
+                vue_ls = function()
+                    require("lspconfig").vue_ls.setup({
+                        cmd = "~/.local/share/nvim/mason/bin/vue-language-server",
+                        on_attach = function(client, bufnr)
+                            attach(client, bufnr)
+                            if vim.bo.filetype == "vue" then
+                                if client.server_capabilities.semanticTokensProvider then
+                                    client.server_capabilities.semanticTokensProvider = nil
+                                end
+                            end
+                        end,
                     })
                 end,
                 pyright = function()
