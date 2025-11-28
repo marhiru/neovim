@@ -18,6 +18,7 @@ return {
                 "vtsls",
                 "ruff",
                 "pyright",
+                "vue-language-server",
             },
             automatic_enable = {
                 "vtsls",
@@ -30,6 +31,7 @@ return {
                 "vtsls",
                 "ruff",
                 "pyright",
+                "vue-language-server",
             },
             handlers = {
                 function(server_name)
