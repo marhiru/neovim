@@ -69,12 +69,11 @@ return {
         end
     },
     {
-    'scozu/karasu',
-    lazy = false,
-    priority = 1000,
-    config = function()
-        require('karasu').setup()
-    end
+        'scozu/karasu',
+        lazy = false,
+        config = function()
+            require('karasu').setup()
+        end
     },
     -- {
     --     "sainnhe/sonokai",
