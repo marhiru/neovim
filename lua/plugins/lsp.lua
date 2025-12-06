@@ -23,9 +23,9 @@ return {
                 "lua_ls",
                 "pyright",
                 "vue-language-server",
-                "zls",
                 "gopls",
                 "expert",
+                "zls",
             },
             integrations = {
                 ["mason-lspconfig"] = true,
@@ -62,6 +62,7 @@ return {
                 "zls",
                 "gopls",
                 "expert",
+                "zls",
             },
             handlers = {
                 function(server_name)
