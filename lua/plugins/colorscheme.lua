@@ -50,7 +50,7 @@ return {
         name = "black-metal",
         config = function()
             require("black-metal").setup({})
-            -- vim.cmd("colorscheme bathory")
+            -- vim.cmd("colorscheme dark-funeral")
         end,
     },
     {
@@ -68,39 +68,29 @@ return {
             require("nord").setup()
         end
     },
+    -- {
+    --     'scozu/karasu',
+    --     lazy = false,
+    --     config = function()
+    --         require('karasu').setup()
+    --     end
+    -- },
     {
-        'scozu/karasu',
+        "IroncladDev/osmium",
         lazy = false,
         config = function()
-            require('karasu').setup()
-        end
+            require("osmium").setup({})
+        end,
     },
-    -- {
-    --     "sainnhe/sonokai",
-    --     name = "sonokai",
-    --     config = function()
-    --         vim.g.sonokai_style = "andromeda"
-    --         vim.g.sonokai_enable_italic = 1
-    --         vim.g.sonokai_transparent_background = 0
-    --         vim.g.sonokai_better_performance = 1
-    --
-    --         -- vim.cmd.colorscheme("sonokai")
-    --         --
-    --         local custom_bg = "#0f0f10"
-    --
-    --         vim.api.nvim_set_hl(0, "Normal", { bg = custom_bg })
-    --         vim.api.nvim_set_hl(0, "NormalNC", { bg = custom_bg })
-    --         vim.api.nvim_set_hl(0, "SignColumn", { bg = custom_bg })
-    --         vim.api.nvim_set_hl(0, "LineNr", { bg = custom_bg })
-    --         vim.api.nvim_set_hl(0, "FoldColumn", { bg = custom_bg })
-    --         vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = custom_bg })
-    --         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#141414" })
-    --     end,
-    -- }
+    {
+        "zenbones-theme/zenbones.nvim",
+        dependencies = "rktjmp/lush.nvim",
+        lazy = false,
+    },
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "karasu",
+            colorscheme = "tokyobones",
         },
     },
 }
