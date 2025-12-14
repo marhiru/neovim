@@ -38,7 +38,7 @@ return {
     {
         "olivercederborg/poimandres.nvim",
         lazy = false,
-        priority = 1000,
+        -- priority = 1000,
     },
     {
         "ficcdaf/ashen.nvim",
@@ -50,7 +50,6 @@ return {
         name = "black-metal",
         config = function()
             require("black-metal").setup({})
-            -- vim.cmd("colorscheme dark-funeral")
         end,
     },
     {
@@ -82,15 +81,15 @@ return {
             require("osmium").setup({})
         end,
     },
-    {
-        "zenbones-theme/zenbones.nvim",
-        dependencies = "rktjmp/lush.nvim",
-        lazy = false,
-    },
+    -- {
+    --     "zenbones-theme/zenbones.nvim",
+    --     dependencies = "rktjmp/lush.nvim",
+    --     lazy = false,
+    -- },
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "tokyobones",
+            colorscheme = "osmium",
         },
     },
 }
