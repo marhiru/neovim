@@ -64,14 +64,14 @@ return {
         name = "nord",
         opts = {},
         config = function()
-            require("nord").setup()
+            require("nord").setup({})
         end
     },
     -- {
     --     'scozu/karasu',
     --     lazy = false,
     --     config = function()
-    --         require('karasu').setup()
+    --         require('karasu').setup({})
     --     end
     -- },
     {
@@ -81,15 +81,18 @@ return {
             require("osmium").setup({})
         end,
     },
-    -- {
-    --     "zenbones-theme/zenbones.nvim",
-    --     dependencies = "rktjmp/lush.nvim",
-    --     lazy = false,
-    -- },
+    {
+        "zenbones-theme/zenbones.nvim",
+        dependencies = "rktjmp/lush.nvim",
+        lazy = false,
+        config = function()
+            require("zenbones").setup({})
+        end
+    },
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "osmium",
+            colorscheme = "tokyobones",
         },
     },
 }
