@@ -81,18 +81,18 @@ return {
             require("osmium").setup({})
         end,
     },
-    {
-        "zenbones-theme/zenbones.nvim",
-        dependencies = "rktjmp/lush.nvim",
-        lazy = false,
-        config = function()
-            require("zenbones").setup({})
-        end
-    },
+    -- {
+    --     "zenbones-theme/zenbones.nvim",
+    --     dependencies = "rktjmp/lush.nvim",
+    --     lazy = false,
+    --     config = function()
+    --         require("zenbones").setup({})
+    --     end
+    -- },
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "tokyobones",
+            colorscheme = "dark-funeral",
         },
     },
 }
