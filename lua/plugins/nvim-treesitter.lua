@@ -1,7 +1,12 @@
 return {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+        { " nvim-treesitter/nvim-treesitter-textobjects" }
+    },
     config = function()
-        require("nvim-treesitter.config").setup({
+        local configs = require("nvim-treesitter.config")
+
+        configs.setup({
             ensure_installed = {
                 "vue",
                 "typescript",
@@ -18,6 +23,10 @@ return {
                 "rust",
                 "python",
                 "haskell",
+                "go",
+            },
+            highlight = {
+                enable = true
             },
         })
     end
