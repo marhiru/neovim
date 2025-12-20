@@ -2,6 +2,7 @@
 require("config.lazy")
 
 vim.opt.shiftwidth = 4
+vim.o.guifont = "JetBrainsMono Nerd Font:h14:w8"
 vim.opt.clipboard = "unnamedplus"
 vim.cmd("TransparencyToggle")
 vim.o.signcolumn = "no"
