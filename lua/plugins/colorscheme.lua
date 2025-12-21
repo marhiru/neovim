@@ -6,7 +6,7 @@ return {
             require("rose-pine").setup({
                 disable_italics = true,
             })
-        end,
+        end
     },
     {
         "vague-theme/vague.nvim",
@@ -59,6 +59,13 @@ return {
         end,
         opts = {},
     },
+    -- {
+    --     "hendriknielaender/stardust.nvim",
+    --     opts = {},
+    --     config = function()
+    --         require("stardust").setup({})
+    --     end,
+    -- },
     {
         "gbprod/nord.nvim",
         name = "nord",
@@ -92,7 +99,7 @@ return {
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "sunbather",
+            colorscheme = "cometa",
         },
     },
 }
