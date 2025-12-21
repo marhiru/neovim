@@ -6,6 +6,7 @@ vim.o.guifont = "JetBrainsMono Nerd Font:h14:w8"
 vim.opt.clipboard = "unnamedplus"
 vim.cmd("TransparencyToggle")
 vim.o.signcolumn = "no"
+vim.opt.termguicolors = true
 
 
 ------------
