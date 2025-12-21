@@ -1,12 +1,12 @@
 return {
     "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    lazy = false,
     dependencies = {
-        { " nvim-treesitter/nvim-treesitter-textobjects" }
+        'nvim-treesitter/nvim-treesitter-textobjects',
     },
     config = function()
-        local configs = require("nvim-treesitter.config")
-
-        configs.setup({
+        require("nvim-treesitter").setup({
             ensure_installed = {
                 "vue",
                 "typescript",
@@ -24,10 +24,22 @@ return {
                 "python",
                 "haskell",
                 "go",
+                "elixir",
+                "eex",
+                "heex",
             },
             highlight = {
                 enable = true
             },
+            indent = {
+                enable = true,
+            }
+        })
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = { "elixir", "heex", "eex" },
+            callback = function(ev)
+                vim.treesitter.start(ev.buf)
+            end
         })
     end
 
