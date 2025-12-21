@@ -3,6 +3,15 @@ local config = require("cometa.config")
 
 local M = {}
 
+local STRING = c.string_color
+local LITERAL = c.number_fg
+local MACRO = c.purple
+local PROPERTY = c.orange
+local SYMBOL = c.tag_fg
+local SPECIAL = SYMBOL
+local KEYWORDS = c.accent
+local TYPE = KEYWORDS
+
 M.base = {
     Bold = { style = "bold" },
     Italic = { style = config.italic_keywords },
@@ -40,7 +49,7 @@ M.base = {
     Ignore = { fg = c.ignore_fg, bg = c.bg },
     IncSearch = { fg = c.light_gray, bg = c.inc_search_bg },
     Include = { fg = c.include_fg, style = "bold" },
-    Keyword = { fg = c.light_yellow, style = config.italic_keywords },
+    Keyword = { fg = c.light_yellow, style = "bold" },
     Label = { fg = c.blue, style = "underline" },
     LineNr = { fg = c.context },
     Macro = { fg = c.purple, style = "bold" },
@@ -105,6 +114,29 @@ M.base = {
     Whitespace = { fg = c.whitespace_fg },
     WildMenu = { fg = c.dark, bg = c.blue },
     lCursor = { fg = c.cursor_fg, bg = c.cursor_bg },
+
+    -- treesitter
+    ['@error'] = { fg = c.error_red, },
+    ['@punctuation.delimiter'] = { fg = SYMBOL, },
+    ['@punctuation.bracket'] = { fg = SYMBOL, },
+    ['@markup.list'] = { fg = c.light_blue, },
+
+    ['@constant'] = { fg = KEYWORDS, },
+    ['@constant.builtin'] = { fg = KEYWORDS, },
+    ['@markup.link.label.symbol'] = { fg = SYMBOL, },
+
+    ['@constant.macro'] = { fg = MACRO, },
+    ['@string.regexp'] = { fg = STRING, },
+    ['@string'] = { fg = STRING, },
+    ['@string.escape'] = { fg = SPECIAL, },
+    ['@string.special.symbol'] = { fg = SPECIAL, },
+    ['@character'] = { fg = LITERAL, },
+    ['@number'] = { fg = LITERAL, },
+    ['@boolean'] = { fg = LITERAL, },
+    ['@number.float'] = { fg = LITERAL, },
+    ['@annotation'] = { fg = LITERAL, },
+    ['@attribute'] = { fg = PROPERTY, },
+    ['@module'] = { fg = TYPE, },
 }
 
 return M
