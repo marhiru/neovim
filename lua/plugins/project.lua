@@ -4,7 +4,23 @@ return {
     config = function()
         require("project_nvim").setup({
             detection_methods = { "pattern", "lsp" },
-            patterns = { ".git", "package.json", "Makefile", "pyproject.toml", "Cargo.toml", "build.zig", "venv" },
+            patterns = {
+                ".git",
+                -- Js/Ts Projects
+                "package.json",
+                -- C/C++ projects
+                "Makefile",
+                -- UV in python
+                "pyproject.toml",
+                -- Rust or rust-based projects
+                "Cargo.toml",
+                -- Zig projects
+                "build.zig",
+                -- Python projects
+                "venv",
+                -- Elixir projects
+                "mix.exs"
+            },
             silent_chdir = true,
             show_hidden = true,
             exclude_dirs = {},
