@@ -19,7 +19,9 @@ return {
                 -- Python projects
                 "venv",
                 -- Elixir projects
-                "mix.exs"
+                "mix.exs",
+                -- Golang projects
+                "go.mod"
             },
             silent_chdir = true,
             show_hidden = true,
