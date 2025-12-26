@@ -20,7 +20,7 @@ return {
     light_red = "#D16969",         -- Light red for warnings and minor errors
     orange = "#ffa263",            -- Orange for meta tags and attributes
     yellow = "#f7a41d",            -- Yellow for functions and methods
-    light_yellow = "#ffcfaf",      -- Light yellow for highlights and important areas
+    light_yellow = "#beb8f2",      -- Light yellow for highlights and important areas
     yellow_orange = "#d77d8b",     -- Blend of yellow and orange for special tokens
     purple = "#C586C0",            -- Purple for constants and macros
     magenta = "#D16D9E",           -- Magenta for commands and important tags
