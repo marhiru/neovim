@@ -6,7 +6,7 @@ return {
             require("rose-pine").setup({
                 disable_italics = true,
             })
-        end,
+        end
     },
     {
         "vague-theme/vague.nvim",
@@ -38,7 +38,7 @@ return {
     {
         "olivercederborg/poimandres.nvim",
         lazy = false,
-        priority = 1000,
+        -- priority = 1000,
     },
     {
         "ficcdaf/ashen.nvim",
@@ -50,7 +50,6 @@ return {
         name = "black-metal",
         config = function()
             require("black-metal").setup({})
-            -- vim.cmd("colorscheme dark-funeral")
         end,
     },
     {
@@ -60,19 +59,26 @@ return {
         end,
         opts = {},
     },
+    -- {
+    --     "hendriknielaender/stardust.nvim",
+    --     opts = {},
+    --     config = function()
+    --         require("stardust").setup({})
+    --     end,
+    -- },
     {
         "gbprod/nord.nvim",
         name = "nord",
         opts = {},
         config = function()
-            require("nord").setup()
+            require("nord").setup({})
         end
     },
     -- {
     --     'scozu/karasu',
     --     lazy = false,
     --     config = function()
-    --         require('karasu').setup()
+    --         require('karasu').setup({})
     --     end
     -- },
     {
@@ -82,15 +88,18 @@ return {
             require("osmium").setup({})
         end,
     },
-    {
-        "zenbones-theme/zenbones.nvim",
-        dependencies = "rktjmp/lush.nvim",
-        lazy = false,
-    },
+    -- {
+    --     "zenbones-theme/zenbones.nvim",
+    --     dependencies = "rktjmp/lush.nvim",
+    --     lazy = false,
+    --     config = function()
+    --         require("zenbones").setup({})
+    --     end
+    -- },
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "tokyobones",
+            colorscheme = "cometa",
         },
     },
 }
