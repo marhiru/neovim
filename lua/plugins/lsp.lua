@@ -3,10 +3,14 @@ return {
     dependencies = {
         { "mason-org/mason.nvim" },
         { "neovim/nvim-lspconfig" },
+        { "WhoIsSethDaniel/mason-tool-installer.nvim" },
+        { "jay-babu/mason-nvim-dap.nvim" },
+        { "jay-babu/mason-null-ls.nvim" },
     },
     config = function()
-        require("mason").setup({})
-        require("mason-lspconfig").setup({
+        require("mason-null-ls").setup({})
+        require("mason-nvim-dap").setup({})
+        require("mason-tool-installer").setup({
             ensure_installed = {
                 "vtsls",
                 "rust-analyzer",
@@ -19,7 +23,17 @@ return {
                 "pyright",
                 "vue-language-server",
                 "zls",
+                "gopls",
+                "expert"
             },
+            integrations = {
+                ['mason-lspconfig'] = true,
+                ['mason-null-ls'] = true,
+                ['mason-nvim-dap'] = true,
+            }
+        })
+        require("mason").setup({})
+        require("mason-lspconfig").setup({
             automatic_enable = {
                 "vtsls",
                 "rust-analyzer",
@@ -32,6 +46,23 @@ return {
                 "pyright",
                 "vue-language-server",
                 "zls",
+                "gopls",
+                "expert"
+            },
+            ensure_installed = {
+                "vtsls",
+                "rust-analyzer",
+                "ols",
+                "ruff",
+                "pyright",
+                "clangd",
+                "lua_ls",
+                "ruff",
+                "pyright",
+                "vue-language-server",
+                "zls",
+                "gopls",
+                "expert"
             },
             handlers = {
                 function(server_name)
