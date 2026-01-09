@@ -88,6 +88,13 @@ return {
             require("osmium").setup({})
         end,
     },
+    {
+        "cranberry-clockworks/coal.nvim",
+        lazy = false,
+        config = function()
+            require("coal").setup({})
+        end
+    },
     -- {
     --     "zenbones-theme/zenbones.nvim",
     --     dependencies = "rktjmp/lush.nvim",
@@ -99,7 +106,7 @@ return {
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "cometa",
+            colorscheme = "coal",
         },
     },
 }
