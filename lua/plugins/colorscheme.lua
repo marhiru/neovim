@@ -91,9 +91,9 @@ return {
     {
         "cranberry-clockworks/coal.nvim",
         lazy = false,
-        config = function()
-            require("coal").setup({})
-        end
+        -- config = function()
+        --     require("coal").setup({})
+        -- end
     },
     -- {
     --     "zenbones-theme/zenbones.nvim",
@@ -106,7 +106,7 @@ return {
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "coal",
+            colorscheme = "osmium",
         },
     },
 }
