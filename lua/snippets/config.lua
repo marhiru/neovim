@@ -21,14 +21,18 @@ end
 Snippets.fmt = ls_fmt
 Snippets.name = ls_snippet
 
-local position = {
-    I = 0,
+
+---@class Position
+local Position = {
+    N = 0,
     M = 1,
+    I = 2,
 }
 
 ---@param pos string
+---@return nil
 function Snippets.mode(pos)
-    local value = position[pos]
+    local value = Position[pos]
     ls_insert_node(value)
 end
 
