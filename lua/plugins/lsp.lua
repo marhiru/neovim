@@ -6,72 +6,62 @@ return {
         { "WhoIsSethDaniel/mason-tool-installer.nvim" },
         { "jay-babu/mason-nvim-dap.nvim" },
         { "jay-babu/mason-null-ls.nvim" },
-        { "pmizio/typescript-tools.nvim" },
     },
     config = function()
+        local attach = function(client, bufnr) end
+
         require("mason-null-ls").setup({})
         require("mason-nvim-dap").setup({})
-        require("typescript-tools").setup({
-            settings = {
-                jsx_close_tag = {
-                    enable = true,
-                    filetypes = { "javascriptreact", "typescriptreact" },
-                },
-            },
-        })
         require("mason-tool-installer").setup({
             ensure_installed = {
-                "tsserver",
+                "vtsls",
                 "rust-analyzer",
                 "ols",
                 "ruff",
                 "pyright",
                 "clangd",
                 "lua_ls",
-                "ruff",
                 "pyright",
                 "vue-language-server",
                 "zls",
                 "gopls",
-                "expert"
+                "expert",
             },
             integrations = {
-                ['mason-lspconfig'] = true,
-                ['mason-null-ls'] = true,
-                ['mason-nvim-dap'] = true,
-            }
+                ["mason-lspconfig"] = true,
+                ["mason-null-ls"] = true,
+                ["mason-nvim-dap"] = true,
+            },
         })
         require("mason").setup({})
         require("mason-lspconfig").setup({
             automatic_enable = {
-                "tsserver",
+                "vtsls",
                 "rust-analyzer",
                 "ols",
                 "ruff",
                 "pyright",
                 "clangd",
                 "lua_ls",
-                "ruff",
                 "pyright",
                 "vue-language-server",
                 "zls",
                 "gopls",
-                "expert"
+                "expert",
             },
             ensure_installed = {
-                "tsserver",
+                "vtsls",
                 "rust-analyzer",
                 "ols",
                 "ruff",
                 "pyright",
                 "clangd",
                 "lua_ls",
-                "ruff",
                 "pyright",
                 "vue-language-server",
                 "zls",
                 "gopls",
-                "expert"
+                "expert",
             },
             handlers = {
                 function(server_name)
@@ -83,34 +73,91 @@ return {
                         pattern = { "*.zig", "*.zon" },
                         callback = function()
                             vim.lsp.buf.format()
-                        end
-                    })
-                end,
-                -- vtsls = function()
-                --     require("lspconfig").vtsls.setup({
-                --         on_attach = function(client, bufnr)
-                --             attach(client, bufnr)
-                --             -- When in a .vue file the token highlight will be disabled
-                --             if vim.bo.filetype == "vue" then
-                --                 if client.server_capabilities.semanticTokensProvider then
-                --                     client.server_capabilities.semanticTokensProvider = nil
-                --                 end
-                --             end
-                --         end
-                --     })
-                -- end,
-                vue_ls = function()
-                    require("lspconfig").vue_ls.setup({
-                        cmd = "~/.local/share/nvim/mason/bin/vue-language-server",
-                        on_attach = function(client, bufnr)
-                            attach(client, bufnr)
-                            if vim.bo.filetype == "vue" then
-                                if client.server_capabilities.semanticTokensProvider then
-                                    client.server_capabilities.semanticTokensProvider = nil
-                                end
-                            end
                         end,
                     })
+                end,
+                vtsls = function()
+                    vim.lsp.start({
+                        name = "vtsls",
+                        cmd = { "vtsls", "--stdio" },
+                        root_dir = vim.fs.root(0, { "package.json", "tsconfig.json", "vite.config.ts", ".git" }),
+                        on_attach = function(client, bufnr)
+                            client.offset_encoding = "utf-16"
+                            vim.keymap.set(
+                                "n",
+                                "gd",
+                                vim.lsp.buf.definition,
+                                { buffer = bufnr, desc = "Goto Definition" }
+                            )
+                            vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "References" })
+                            vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
+                            vim.keymap.set(
+                                "n",
+                                "<leader>ca",
+                                vim.lsp.buf.code_action,
+                                { buffer = bufnr, desc = "Code Action" }
+                            )
+                            vim.keymap.set(
+                                "n",
+                                "gI",
+                                vim.lsp.buf.implementation,
+                                { buffer = bufnr, desc = "Goto Implementation" }
+                            )
+                        end,
+                        settings = {
+                            vtsls = {
+                                complete = {
+                                    enable = true,
+                                    includeAutoCompletions = true,
+                                    includeSnippetPlaceholders = true,
+                                },
+                                goToSourceDefinition = {
+                                    enable = true,
+                                },
+                                hybridTags = {
+                                    enable = true,
+                                },
+                            },
+                            typescript = {
+                                inlayHints = {
+                                    includeInlayParameterNameHints = "all",
+                                    includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                                    includeInlayFunctionParameterTypeHints = true,
+                                    includeInlayVariableTypeHints = true,
+                                    includeInlayPropertyDeclarationTypeHints = true,
+                                    includeInlayFunctionLikeReturnTypeHints = true,
+                                    includeInlayEnumMemberValueHints = true,
+                                },
+                            },
+                            javascript = {
+                                inlayHints = {
+                                    includeInlayParameterNameHints = "all",
+                                    includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                                    includeInlayFunctionParameterTypeHints = true,
+                                    includeInlayVariableTypeHints = true,
+                                    includeInlayPropertyDeclarationTypeHints = true,
+                                    includeInlayFunctionLikeReturnTypeHints = true,
+                                    includeInlayEnumMemberValueHints = true,
+                                },
+                            },
+                        },
+                        capabilities = {
+                            textDocument = {
+                                foldingRange = {
+                                    dynamicRegistrations = false,
+                                },
+                                semanticTokens = {
+                                    dynamicRegistrations = false,
+                                },
+                            },
+                        },
+                        flags = {
+                            debounce_text_changes = 0,
+                            exit_timeout = 0,
+                            allow_incremental_sync = true,
+                        },
+                    })
+                    return true
                 end,
                 pyright = function()
                     local python_path = vim.fn.expand(".venv/bin/python")
@@ -159,7 +206,7 @@ return {
                                 lint = {
                                     enable = true,
                                     select = { "E", "F", "I", "F841" },
-                                    ignore = {}
+                                    ignore = {},
                                 },
                                 format = {
                                     enable = true,
@@ -169,16 +216,16 @@ return {
                     })
                 end,
                 zls = function()
-                    require("lspconfig").zls.setup {
+                    require("lspconfig").zls.setup({
                         cmd = "/usr/bin/zls",
                         settings = {
                             zls = {
                                 -- https://zigtools.org/zls/guides/build-on-save/
                                 semantic_tokens = "partial",
-                                zig_exe_path = "/usr/bin/zig"
-                            }
-                        }
-                    }
+                                zig_exe_path = "/usr/bin/zig",
+                            },
+                        },
+                    })
                 end,
             },
         })
