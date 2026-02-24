@@ -6,13 +6,22 @@ return {
         { "WhoIsSethDaniel/mason-tool-installer.nvim" },
         { "jay-babu/mason-nvim-dap.nvim" },
         { "jay-babu/mason-null-ls.nvim" },
+        { "pmizio/typescript-tools.nvim" },
     },
     config = function()
         require("mason-null-ls").setup({})
         require("mason-nvim-dap").setup({})
+        require("typescript-tools").setup({
+            settings = {
+                jsx_close_tag = {
+                    enable = true,
+                    filetypes = { "javascriptreact", "typescriptreact" },
+                },
+            },
+        })
         require("mason-tool-installer").setup({
             ensure_installed = {
-                "vtsls",
+                "tsserver",
                 "rust-analyzer",
                 "ols",
                 "ruff",
@@ -35,7 +44,7 @@ return {
         require("mason").setup({})
         require("mason-lspconfig").setup({
             automatic_enable = {
-                "vtsls",
+                "tsserver",
                 "rust-analyzer",
                 "ols",
                 "ruff",
@@ -50,7 +59,7 @@ return {
                 "expert"
             },
             ensure_installed = {
-                "vtsls",
+                "tsserver",
                 "rust-analyzer",
                 "ols",
                 "ruff",
@@ -77,19 +86,19 @@ return {
                         end
                     })
                 end,
-                vtsls = function()
-                    require("lspconfig").vtsls.setup({
-                        on_attach = function(client, bufnr)
-                            attach(client, bufnr)
-                            -- When in a .vue file the token highlight will be disabled
-                            if vim.bo.filetype == "vue" then
-                                if client.server_capabilities.semanticTokensProvider then
-                                    client.server_capabilities.semanticTokensProvider = nil
-                                end
-                            end
-                        end
-                    })
-                end,
+                -- vtsls = function()
+                --     require("lspconfig").vtsls.setup({
+                --         on_attach = function(client, bufnr)
+                --             attach(client, bufnr)
+                --             -- When in a .vue file the token highlight will be disabled
+                --             if vim.bo.filetype == "vue" then
+                --                 if client.server_capabilities.semanticTokensProvider then
+                --                     client.server_capabilities.semanticTokensProvider = nil
+                --                 end
+                --             end
+                --         end
+                --     })
+                -- end,
                 vue_ls = function()
                     require("lspconfig").vue_ls.setup({
                         cmd = "~/.local/share/nvim/mason/bin/vue-language-server",

@@ -109,7 +109,7 @@ return {
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "alduin",
+            colorscheme = "oldtale",
         },
     },
 }

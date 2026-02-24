@@ -10,6 +10,7 @@ local Snippets = {}
 
 ---@param filetype string
 ---@param snippet LuaSnip.Addable[]|{[string]: LuaSnip.Addable[]}
+---@return nil
 function Snippets.new(filetype, snippet)
     -- Clear snippets
     collection.clear_snippets(filetype)
@@ -20,7 +21,6 @@ end
 -- Rewrite of LuaSnip functions
 Snippets.fmt = ls_fmt
 Snippets.name = ls_snippet
-
 
 ---@class Position
 local Position = {

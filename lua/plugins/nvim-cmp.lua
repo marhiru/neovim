@@ -14,6 +14,6 @@ return {
         config = function()
             require "config.completion"
             require("nvim-cmp").setup({})
-        end
-    }
+        end,
+    },
 }
