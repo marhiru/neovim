@@ -193,11 +193,12 @@ end, { desc = "Toggle Line Number" })
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 
 -- Highlights under cursor
-map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
+map("n", "<leader>i", vim.show_pos, { desc = "Inspect Pos" })
 
 -- Windows
-map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
-map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
+map("n", "<leader>wq", "<cmd>close<cr>", { desc = "Close Window (Keep Buffer)" })
+map("n", "<leader>w", "<cmd>split<cr>", { desc = "Horizontal Split" })
+map("n", "<leader>v", "<cmd>vsplit<cr>", { desc = "Vertical Split" })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 
 -- Tabs
