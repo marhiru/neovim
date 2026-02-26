@@ -1,5 +1,6 @@
 return {
     "mason-org/mason-lspconfig.nvim",
+    lazy = false,
     dependencies = {
         { "mason-org/mason.nvim" },
         { "neovim/nvim-lspconfig" },
@@ -9,22 +10,44 @@ return {
         { "nvimtools/none-ls.nvim" },
     },
     config = function()
-        local attach = function(client, bufnr) end
+        local attach = function(client, bufnr)
+            local bufmap = function(keys, func)
+                vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "" })
+            end
+
+            bufmap("gd", vim.lsp.buf.definition)
+            bufmap("gD", vim.lsp.buf.declaration)
+            bufmap("gr", vim.lsp.buf.references)
+            bufmap("gI", vim.lsp.buf.implementation)
+            bufmap("K", vim.lsp.buf.hover)
+            bufmap("<leader>ca", vim.lsp.buf.code_action)
+            bufmap("<leader>cr", vim.lsp.buf.rename)
+
+            bufmap("gs", function()
+                vim.cmd("vsplit")
+                vim.lsp.buf.definition()
+            end)
+            bufmap("gx", function()
+                vim.cmd("split")
+                vim.lsp.buf.definition()
+            end)
+        end
 
         require("mason-null-ls").setup({})
         require("mason-nvim-dap").setup({})
         require("mason-tool-installer").setup({
             ensure_installed = {
                 "vtsls",
-                "rust-analyzer",
+                "rust_analyzer",
                 "ols",
                 "ruff",
                 "pyright",
                 "clangd",
                 "lua_ls",
-                "vue-language-server",
+                "vue_ls",
                 "zls",
                 "gopls",
+		"expert",
             },
             integrations = {
                 ["mason-lspconfig"] = true,
@@ -36,26 +59,28 @@ return {
         require("mason-lspconfig").setup({
             automatic_enable = {
                 "vtsls",
-                "rust-analyzer",
+                "rust_analyzer",
                 "ols",
                 "ruff",
                 "pyright",
                 "clangd",
-                "vue-language-server",
+                "vue_ls",
                 "zls",
                 "gopls",
+		"expert",
             },
             ensure_installed = {
                 "vtsls",
-                "rust-analyzer",
+                "rust_analyzer",
                 "ols",
                 "ruff",
                 "pyright",
                 "clangd",
                 "lua_ls",
-                "vue-language-server",
+                "vue_ls",
                 "zls",
                 "gopls",
+		"expert",
             },
             handlers = {
                 function(server_name)
@@ -64,19 +89,44 @@ return {
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
                     })
                 end,
-                lua_ls = function()
-                    require("lspconfig").lua_ls.setup({
-                        on_attach = attach,
-                        capabilities = require("cmp_nvim_lsp").default_capabilities(),
-                        root_dir = function(bufnr)
-                            local file = vim.api.nvim_buf_get_name(bufnr)
-                            if file:match("%.lua$") and file ~= "" then
-                                return vim.fn.fnamemodify(file, ":p:h")
-                            end
-                            return require("lspconfig").util.find_root({ ".git", "lua", "package.json" }, file)
-                        end,
-                    })
-                end,
+		lua_ls = function()
+		    local config_path = vim.fn.stdpath("config")
+
+		    require("lspconfig").lua_ls.setup({
+			on_attach = attach,
+			capabilities = require("cmp_nvim_lsp").default_capabilities(),
+
+			root_dir = function(fname)
+			    if not fname or fname == "" then return nil end
+			    if not fname:match("^" .. vim.pesc(config_path)) then return nil end
+			    return require("lspconfig.util").root_pattern(".luarc.json", ".git")(fname)
+				or config_path
+			end,
+
+			-- Settings declared upfront, no on_init needed
+			settings = {
+			    Lua = {
+				runtime = {
+				    version = "LuaJIT",
+				    pathStrict = false,
+				},
+				diagnostics = {
+				    globals = { "vim" },
+				},
+				workspace = {
+				    library = {
+					vim.env.VIMRUNTIME,
+					config_path,
+					config_path .. "/lua",
+				    },
+				    checkThirdParty = false,
+				    ignoreDir = { ".git", "node_modules" },
+				},
+				telemetry = { enable = false },
+			    },
+			},
+		    })
+		end,
                 vtsls = function()
                     vim.lsp.start({
                         name = "vtsls",
@@ -180,10 +230,20 @@ return {
                 end,
                 zls = function()
                     require("lspconfig").zls.setup({
-                        cmd = { "/usr/bin/zls" },
+                        cmd = "/usr/bin/zls",
                         settings = {
-                            zls = { semantic_tokens = "partial", zig_exe_path = "/usr/bin/zig" },
+                            zls = {
+                                -- https://zigtools.org/zls/guides/build-on-save/
+                                semantic_tokens = "partial",
+                                zig_exe_path = "/usr/bin/zig",
+                            },
                         },
+                    })
+                    vim.api.nvim_create_augroup("BufWritePre", {
+                        pattern = { "*.zig", "*.zon" },
+                        callback = function()
+                            vim.lsp.buf.format()
+                        end,
                     })
                 end,
             },
