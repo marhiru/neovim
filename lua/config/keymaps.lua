@@ -213,7 +213,7 @@ map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 map("n", "<leader>i", vim.show_pos, { desc = "Inspect Pos" })
 
 -- Windows
-map("n", "<leader>wq", "<cmd>close<cr>", { desc = "Close Window (Keep Buffer)" })
+map("n", "<leader>wq", "<cmd>close!<cr>", { desc = "Close Window (Keep Buffer)" })
 map("n", "<leader>w", "<cmd>split<cr>", { desc = "Horizontal Split" })
 map("n", "<leader>v", "<cmd>vsplit<cr>", { desc = "Vertical Split" })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
@@ -304,7 +304,8 @@ end, { desc = "Previous Colorscheme" })
 -- Terminal
 map("t", "<esc>", "<c-\\><c-n>")
 
-map("n", "<leader>st", function()
+-- Horizontal terminal
+map("n", "<leader>wt", function()
     vim.cmd.new()
     vim.cmd.wincmd("J")
     vim.api.nvim_win_set_height(0, 12)
@@ -312,4 +313,13 @@ map("n", "<leader>st", function()
     vim.cmd.term()
 end)
 
-map("n", "<leader>q", ":bp<CR>\\|bd#<CR", { noremap = true, silent = true })
+-- Vertical terminal
+map("n", "<leader>wt", function()
+    vim.cmd.new()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, 12)
+    vim.wo.winfixheight = true
+    vim.cmd.term()
+end)
+
+map("n", "<leader>q", "<cmd>bd!<cr>", { desc = "Delete Buffer" })
