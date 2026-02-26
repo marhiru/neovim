@@ -6,8 +6,8 @@ vim.opt.ttimeoutlen = 100
 
 -- Clipboard with fallback (for neovide/Linux without clipboard tools)
 local function has_clipboard()
-    local ok, _ = pcall(vim.fn.has, "wsl")
-    if ok and vim.fn.has("wsl") == 1 then return true end
+    local ok, is_wsl = pcall(vim.fn.has, "wsl")
+    if ok and is_wsl == 1 then return true end
     if vim.fn.executable("wl-copy") == 1 then return true end
     if vim.fn.executable("xclip") == 1 then return true end
     return false
