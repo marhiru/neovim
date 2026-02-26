@@ -1,6 +1,7 @@
 -- ~/.config/neolive/init.lua
 -- Basic Neovim init for neolive config
 -- Uses LazyVim only as package manager (no lazyvim.plugins)
+require("lsp")
 
 -- Basic settings
 local leader = ","
@@ -19,7 +20,7 @@ local function load_used_colorscheme()
         vim.cmd.colorscheme("oldtale")
         return
     end
-    
+
     local theme_name = "oldtale" -- default
     for _, theme in ipairs(spec) do
         if theme.used then
@@ -27,7 +28,7 @@ local function load_used_colorscheme()
             break
         end
     end
-    
+
     vim.cmd.colorscheme(theme_name)
 end
 
