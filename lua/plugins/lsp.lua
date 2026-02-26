@@ -33,21 +33,26 @@ return {
             end)
         end
 
-        require("mason-null-ls").setup({})
+        require("mason-null-ls").setup({
+            ensure_installed = {
+                -- formatters handled by lua/plugins/null-ls.lua
+            },
+        })
         require("mason-nvim-dap").setup({})
         require("mason-tool-installer").setup({
             ensure_installed = {
                 "vtsls",
                 "rust_analyzer",
-                "ols",
                 "ruff",
                 "pyright",
                 "clangd",
+                "ols",
                 "lua_ls",
                 "vue_ls",
                 "zls",
                 "gopls",
-		"expert",
+                "stylua",
+                "prettier",
             },
             integrations = {
                 ["mason-lspconfig"] = true,
@@ -80,7 +85,8 @@ return {
                 "vue_ls",
                 "zls",
                 "gopls",
-		"expert",
+                "stylua",
+                "expert",
             },
             handlers = {
                 function(server_name)
@@ -125,6 +131,12 @@ return {
 				telemetry = { enable = false },
 			    },
 			},
+		    })
+		    vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = { "*.lua" },
+			callback = function()
+			    vim.lsp.buf.format({ async = true })
+			end,
 		    })
 		end,
                 vtsls = function()
@@ -213,10 +225,8 @@ return {
                     require("lspconfig").ruff.setup({
                         on_attach = function(client, bufnr)
                             attach(client, bufnr)
-                            client.server_capabilities.documentFormattingProvider = true
-                            if client.server_capabilities.documentFormattingProvider then
-                                vim.lsp.buf.format({ bufnr = bufnr, name = "ruff", timeout_ms = 200 })
-                            end
+                            client.server_capabilities.documentFormattingProvider = false
+                            client.server_capabilities.documentRangeFormattingProvider = false
                         end,
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
                         init_options = {
