@@ -5,15 +5,23 @@ vim.opt.timeoutlen = 150
 
 map("i", "kj", function()
     vim.cmd("stopinsert")
+    vim.b.skip_autoformat = true
     vim.lsp.buf.format({ async = true })
     vim.cmd("write")
+    vim.schedule(function()
+        vim.b.skip_autoformat = false
+    end)
 end, { noremap = true, silent = true, desc = "Escape + Save + Format" })
 
 -- Save and format
 map({ "n", "i" }, "<C-s>", function()
     vim.cmd("stopinsert")
+    vim.b.skip_autoformat = true
     vim.lsp.buf.format({ async = true })
     vim.cmd("write")
+    vim.schedule(function()
+        vim.b.skip_autoformat = false
+    end)
 end, { noremap = true, silent = true, desc = "Save and format" })
 
 -- Telescope live_grep mapped to <Space>m
