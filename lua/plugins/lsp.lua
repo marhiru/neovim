@@ -72,7 +72,7 @@ return {
                 "vue_ls",
                 "zls",
                 "gopls",
-		"expert",
+                "expert",
             },
             ensure_installed = {
                 "vtsls",
@@ -95,50 +95,47 @@ return {
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
                     })
                 end,
-		lua_ls = function()
-		    local config_path = vim.fn.stdpath("config")
+                lua_ls = function()
+                    local config_path = vim.fn.stdpath("config")
 
-		    require("lspconfig").lua_ls.setup({
-			on_attach = attach,
-			capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                    require("lspconfig").lua_ls.setup({
+                        on_attach = attach,
+                        capabilities = require("cmp_nvim_lsp").default_capabilities(),
 
-			root_dir = function(fname)
-			    if not fname or fname == "" then return nil end
-			    if not fname:match("^" .. vim.pesc(config_path)) then return nil end
-			    return require("lspconfig.util").root_pattern(".luarc.json", ".git")(fname)
-				or config_path
-			end,
+                        root_dir = function(fname)
+                            if not fname or fname == "" then
+                                return nil
+                            end
+                            if not fname:match("^" .. vim.pesc(config_path)) then
+                                return nil
+                            end
+                            return require("lspconfig.util").root_pattern(".luarc.json", ".git")(fname) or config_path
+                        end,
 
-			-- Settings declared upfront, no on_init needed
-			settings = {
-			    Lua = {
-				runtime = {
-				    version = "LuaJIT",
-				    pathStrict = false,
-				},
-				diagnostics = {
-				    globals = { "vim" },
-				},
-				workspace = {
-				    library = {
-					vim.env.VIMRUNTIME,
-					config_path,
-					config_path .. "/lua",
-				    },
-				    checkThirdParty = false,
-				    ignoreDir = { ".git", "node_modules" },
-				},
-				telemetry = { enable = false },
-			    },
-			},
-		    })
-		    vim.api.nvim_create_autocmd("BufWritePre", {
-			pattern = { "*.lua" },
-			callback = function()
-			    vim.lsp.buf.format({ async = true })
-			end,
-		    })
-		end,
+                        -- Settings declared upfront, no on_init needed
+                        settings = {
+                            Lua = {
+                                runtime = {
+                                    version = "LuaJIT",
+                                    pathStrict = false,
+                                },
+                                diagnostics = {
+                                    globals = { "vim" },
+                                },
+                                workspace = {
+                                    library = {
+                                        vim.env.VIMRUNTIME,
+                                        config_path,
+                                        config_path .. "/lua",
+                                    },
+                                    checkThirdParty = false,
+                                    ignoreDir = { ".git", "node_modules" },
+                                },
+                                telemetry = { enable = false },
+                            },
+                        },
+                    })
+                end,
                 vtsls = function()
                     vim.lsp.start({
                         name = "vtsls",
@@ -147,15 +144,34 @@ return {
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
                         on_attach = function(client, bufnr)
                             client.offset_encoding = "utf-16"
-                            vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Goto Definition" })
+                            vim.keymap.set(
+                                "n",
+                                "gd",
+                                vim.lsp.buf.definition,
+                                { buffer = bufnr, desc = "Goto Definition" }
+                            )
                             vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "References" })
                             vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
-                            vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
-                            vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Goto Implementation" })
+                            vim.keymap.set(
+                                "n",
+                                "<leader>ca",
+                                vim.lsp.buf.code_action,
+                                { buffer = bufnr, desc = "Code Action" }
+                            )
+                            vim.keymap.set(
+                                "n",
+                                "gI",
+                                vim.lsp.buf.implementation,
+                                { buffer = bufnr, desc = "Goto Implementation" }
+                            )
                         end,
                         settings = {
                             vtsls = {
-                                complete = { enable = true, includeAutoCompletions = true, includeSnippetPlaceholders = true },
+                                complete = {
+                                    enable = true,
+                                    includeAutoCompletions = true,
+                                    includeSnippetPlaceholders = true,
+                                },
                                 goToSourceDefinition = { enable = true },
                                 hybridTags = { enable = true },
                             },
@@ -211,7 +227,11 @@ return {
                         settings = {
                             pyright = { disableOrganizeImports = true },
                             python = {
-                                analysis = { diagnosticMode = "openFilesOnly", typeCheckingMode = "basic", useLibraryCodeForTypes = true },
+                                analysis = {
+                                    diagnosticMode = "openFilesOnly",
+                                    typeCheckingMode = "basic",
+                                    useLibraryCodeForTypes = true,
+                                },
                                 pythonPath = python_path,
                             },
                         },
@@ -248,12 +268,6 @@ return {
                                 zig_exe_path = "/usr/bin/zig",
                             },
                         },
-                    })
-                    vim.api.nvim_create_augroup("BufWritePre", {
-                        pattern = { "*.zig", "*.zon" },
-                        callback = function()
-                            vim.lsp.buf.format()
-                        end,
                     })
                 end,
             },
