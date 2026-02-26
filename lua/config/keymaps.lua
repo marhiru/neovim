@@ -1,7 +1,7 @@
 -- Keymaps for neolive
 local map = vim.keymap.set
 
-vim.opt.timeoutlen = 125
+vim.opt.timeoutlen = 500
 
 map("i", "kj", function()
     vim.cmd("stopinsert")
@@ -314,11 +314,11 @@ map("n", "<leader>wt", function()
 end)
 
 -- Vertical terminal
-map("n", "<leader>wt", function()
-    vim.cmd.new()
-    vim.cmd.wincmd("J")
-    vim.api.nvim_win_set_height(0, 12)
-    vim.wo.winfixheight = true
+map("n", "<leader>vt", function()
+    vim.cmd.vnew()
+    vim.cmd.wincmd("H")
+    vim.api.nvim_win_set_width(0, 40)
+    vim.wo.winfixwidth = true
     vim.cmd.term()
 end)
 

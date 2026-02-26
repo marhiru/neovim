@@ -105,16 +105,16 @@ return {
                     vim.keymap.set(mode, l, r, opts)
                 end
 
-                map("n", "<leader>gd", gs.preview_hunk, { desc = "preview git hunk" })
-                map("n", "<leader>gb", gs.blame_line, { desc = "blame line" })
-                map("n", "<leader>gD", function()
+                map("n", "<leader>hp", gs.preview_hunk, { desc = "preview hunk" })
+                map("n", "<leader>b", gs.blame_line, { desc = "blame line" })
+                map("n", "<leader>hd", function()
                     gs.diffthis("~")
                 end, { desc = "diff file" })
-                map({ "n", "v" }, "<leader>ga", ":Gitsigns stage_hunk<CR>")
-                map("n", "<leader>gr", ":Gitsigns reset_hunk<CR>")
-                map("n", "<leader>gu", gs.undo_stage_hunk, { desc = "undo stage hunk" })
+                map({ "n", "v" }, "<leader>s", ":Gitsigns stage_hunk<CR>")
+                map("n", "<leader>r", ":Gitsigns reset_hunk<CR>")
+                map("n", "<leader>u", gs.undo_stage_hunk, { desc = "undo stage hunk" })
 
-                map("n", "<leader>gn", function()
+                map("n", "<leader>hn", function()
                     if vim.wo.diff then
                         return "gn"
                     end
@@ -124,7 +124,7 @@ return {
                     return "<Ignore>"
                 end, { expr = true })
 
-                map("n", "<leader>gp", function()
+                map("n", "<leader>hk", function()
                     if vim.wo.diff then
                         return "gp"
                     end
