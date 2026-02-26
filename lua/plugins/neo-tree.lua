@@ -1,7 +1,8 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
-    lazy = false,
+    lazy = true,
+    event = "VeryLazy",
     dependencies = {
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim",
