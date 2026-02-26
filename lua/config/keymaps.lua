@@ -1,7 +1,7 @@
 -- Keymaps for neolive
 local map = vim.keymap.set
 
-vim.opt.timeoutlen = 150
+vim.opt.timeoutlen = 125
 
 map("i", "kj", function()
     vim.cmd("stopinsert")
