@@ -1,14 +1,18 @@
 -- Keymaps for neolive
 local map = vim.keymap.set
 
+vim.opt.timeoutlen = 150
+
 map("i", "kj", function()
     vim.cmd("stopinsert")
-    vim.cmd("w")
+    vim.lsp.buf.format({ async = true })
+    vim.cmd("write")
 end, { noremap = true, silent = true, desc = "Escape + Save + Format" })
 
 -- Save and format
 map({ "n", "i" }, "<C-s>", function()
     vim.cmd("stopinsert")
+    vim.lsp.buf.format({ async = true })
     vim.cmd("write")
 end, { noremap = true, silent = true, desc = "Save and format" })
 
@@ -103,7 +107,12 @@ map({ "i", "n", "s" }, "<esc>", function()
 end, { expr = true, desc = "Escape and Clear hlsearch" })
 
 -- Redraw / Clear hlsearch / Diff Update
-map("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { desc = "Redraw / Clear hlsearch / Diff Update" })
+map(
+    "n",
+    "<leader>ur",
+    "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+    { desc = "Redraw / Clear hlsearch / Diff Update" }
+)
 
 -- Better n/N search behavior
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
@@ -284,13 +293,12 @@ map("n", "<leader>u[", function()
     vim.notify("Colorscheme: " .. themes[current_theme_index].display, vim.log.levels.INFO)
 end, { desc = "Previous Colorscheme" })
 
-
 -- Terminal
 map("t", "<esc>", "<c-\\><c-n>")
 
-map("n", "<leader>st", function ()
+map("n", "<leader>st", function()
     vim.cmd.new()
-    vim.cmd.wincmd "J"
+    vim.cmd.wincmd("J")
     vim.api.nvim_win_set_height(0, 12)
     vim.wo.winfixheight = true
     vim.cmd.term()
