@@ -13,7 +13,7 @@ return {
             },
             explorer = {
                 files = {
-                    hidden = false,
+                    hidden = true,
                 },
             },
             scroll = { enabled = false },
