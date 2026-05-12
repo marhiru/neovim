@@ -37,6 +37,12 @@ return {
             table.insert(errors, "ruff not found")
         end
 
+        if has_formatter("ocamlformat") then
+            table.insert(sources, null_ls.builtins.formatting.ocamlformat.with({}))
+        else
+            table.insert(errors, "ocamlformat not found")
+        end
+
         if #errors > 0 then
             vim.notify("null-ls: " .. table.concat(errors, ", "), vim.log.levels.WARN)
         end
