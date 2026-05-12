@@ -53,6 +53,7 @@ return {
                 "gopls",
                 "stylua",
                 "prettier",
+                "elp",
             },
             integrations = {
                 ["mason-lspconfig"] = true,
@@ -73,10 +74,14 @@ return {
                 "zls",
                 "gopls",
                 "expert",
+                "prettier",
+                "elp",
+                "ocamllsp",
             },
             ensure_installed = {
                 "vtsls",
                 "rust_analyzer",
+                "ocamllsp",
                 "ols",
                 "ruff",
                 "pyright",
@@ -87,6 +92,8 @@ return {
                 "gopls",
                 "stylua",
                 "expert",
+                "prettier",
+                "elp",
             },
             handlers = {
                 function(server_name)
@@ -106,10 +113,15 @@ return {
                             if not fname or fname == "" then
                                 return nil
                             end
-                            if not fname:match("^" .. vim.pesc(config_path)) then
+                            if
+                                not fname:match("^" .. vim.pesc(config_path))
+                            then
                                 return nil
                             end
-                            return require("lspconfig.util").root_pattern(".luarc.json", ".git")(fname) or config_path
+                            return require("lspconfig.util").root_pattern(
+                                ".luarc.json",
+                                ".git"
+                            )(fname) or config_path
                         end,
 
                         -- Settings declared upfront, no on_init needed
@@ -140,9 +152,17 @@ return {
                     vim.lsp.start({
                         name = "vtsls",
                         cmd = { "vtsls", "--stdio" },
-                        root_dir = vim.fs.root(0, { "package.json", "tsconfig.json", "vite.config.ts", ".git" }),
-                        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                        root_dir = vim.fs.root(0, {
+                            "package.json",
+                            "tsconfig.json",
+                            "vite.config.ts",
+                            ".git",
+                        }),
                         on_attach = function(client, bufnr)
+                            client.server_capabilities.documentFormattingProvider =
+                                false
+                            client.server_capabilities.documentRangeFormattingProvider =
+                                false
                             client.offset_encoding = "utf-16"
                             vim.keymap.set(
                                 "n",
@@ -150,8 +170,18 @@ return {
                                 vim.lsp.buf.definition,
                                 { buffer = bufnr, desc = "Goto Definition" }
                             )
-                            vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "References" })
-                            vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
+                            vim.keymap.set(
+                                "n",
+                                "gr",
+                                vim.lsp.buf.references,
+                                { buffer = bufnr, desc = "References" }
+                            )
+                            vim.keymap.set(
+                                "n",
+                                "K",
+                                vim.lsp.buf.hover,
+                                { buffer = bufnr, desc = "Hover" }
+                            )
                             vim.keymap.set(
                                 "n",
                                 "<leader>ca",
@@ -201,7 +231,9 @@ return {
                         capabilities = {
                             textDocument = {
                                 foldingRange = { dynamicRegistrations = false },
-                                semanticTokens = { dynamicRegistrations = false },
+                                semanticTokens = {
+                                    dynamicRegistrations = false,
+                                },
                             },
                         },
                         flags = {
@@ -215,13 +247,16 @@ return {
                 pyright = function()
                     local python_path = vim.fn.expand(".venv/bin/python")
                     if not vim.fn.filereadable(python_path) then
-                        python_path = vim.fn.exepath("python3") or vim.fn.exepath("python")
+                        python_path = vim.fn.exepath("python3")
+                            or vim.fn.exepath("python")
                     end
                     require("lspconfig").pyright.setup({
                         on_attach = function(client, bufnr)
                             attach(client, bufnr)
-                            client.server_capabilities.documentFormattingProvider = false
-                            client.server_capabilities.documentRangeFormattingProvider = false
+                            client.server_capabilities.documentFormattingProvider =
+                                false
+                            client.server_capabilities.documentRangeFormattingProvider =
+                                false
                         end,
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
                         settings = {
@@ -240,19 +275,26 @@ return {
                 ruff = function()
                     local python_path = vim.fn.expand(".venv/bin/python")
                     if not vim.fn.filereadable(python_path) then
-                        python_path = vim.fn.exepath("python3") or vim.fn.exepath("python")
+                        python_path = vim.fn.exepath("python3")
+                            or vim.fn.exepath("python")
                     end
                     require("lspconfig").ruff.setup({
                         on_attach = function(client, bufnr)
                             attach(client, bufnr)
-                            client.server_capabilities.documentFormattingProvider = false
-                            client.server_capabilities.documentRangeFormattingProvider = false
+                            client.server_capabilities.documentFormattingProvider =
+                                false
+                            client.server_capabilities.documentRangeFormattingProvider =
+                                false
                         end,
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
                         init_options = {
                             settings = {
                                 interpreter = python_path,
-                                lint = { enable = true, select = { "E", "F", "I", "F841" }, ignore = {} },
+                                lint = {
+                                    enable = true,
+                                    select = { "E", "F", "I", "F841" },
+                                    ignore = {},
+                                },
                                 format = { enable = true },
                             },
                         },
@@ -268,6 +310,13 @@ return {
                                 zig_exe_path = "/usr/bin/zig",
                             },
                         },
+                    })
+                end,
+                ocamllsp = function()
+                    require("lspconfig").ocamllsp.setup({
+                        cmd = { "ocamllsp" },
+                        on_attach = attach,
+                        capabilities = require("cmp_nvim_lsp").default_capabilities(),
                     })
                 end,
             },
