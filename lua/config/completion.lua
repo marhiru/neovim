@@ -13,7 +13,7 @@ local cmp = require("cmp")
 
 cmp.setup({
     enabled = function()
-        return vim.api.nvim_get_option_value("buftype", { buf = 0 })  ~= "prompt" 
+        return vim.api.nvim_get_option_value("buftype", { buf = 0 }) ~= "prompt"
     end,
     performance = {
         debounce = 30,
@@ -28,11 +28,15 @@ cmp.setup({
         { name = "buffer", priority = 500 },
     }),
     mapping = cmp.mapping({
-        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<C-n>"] = cmp.mapping.select_next_item({
+            behavior = cmp.SelectBehavior.Insert,
+        }),
+        ["<C-p>"] = cmp.mapping.select_prev_item({
+            behavior = cmp.SelectBehavior.Insert,
+        }),
         ["<C-x>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<CR>"] = cmp.mapping.confirm({ select = false }),
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -75,7 +79,9 @@ ls.config.set_config({
     updateevents = "TextChanged,TextChangedI",
 })
 
-for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/snippets/*.lua", true)) do
+for _, ft_path in
+    ipairs(vim.api.nvim_get_runtime_file("lua/snippets/*.lua", true))
+do
     loadfile(ft_path)()
 end
 
