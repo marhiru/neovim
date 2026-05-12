@@ -2,8 +2,9 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     lazy = false,
+    branch = "main",
     dependencies = {
-        'nvim-treesitter/nvim-treesitter-textobjects',
+        { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
     },
     config = function()
         require("nvim-treesitter").setup({
@@ -28,17 +29,17 @@ return {
                 "heex",
             },
             highlight = {
-                enable = true
+                enable = true,
             },
             indent = {
                 enable = true,
-            }
+            },
         })
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "elixir", "heex", "eex" },
             callback = function(ev)
                 vim.treesitter.start(ev.buf)
-            end
+            end,
         })
-    end
+    end,
 }
