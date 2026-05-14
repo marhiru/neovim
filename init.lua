@@ -17,11 +17,11 @@ require("config.autocmds")
 local function load_used_colorscheme()
     local ok, spec = pcall(require, "plugins.colorscheme")
     if not ok then
-        vim.cmd.colorscheme("tairiki")
+        vim.cmd.colorscheme("koda")
         return
     end
 
-    local theme_name = "tairiki" -- default
+    local theme_name = "koda" -- default
     for _, theme in ipairs(spec) do
         if theme.used then
             theme_name = theme.name or theme[1]:match("/([^/]+)$")
