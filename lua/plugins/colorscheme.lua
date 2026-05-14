@@ -8,6 +8,31 @@ return {
         end,
     },
     {
+        "oskarnurm/koda.nvim",
+        lazy = false,
+        priority = 1000,
+        name = "koda",
+        config = function()
+            require("koda").setup({
+                cache = true,
+                styles = {
+                    functions = { bold = false },
+                    keywords = { italic = true },
+                    comments = {},
+                    strings = {},
+                    constants = {},
+                },
+                colors = {
+                    type = "#aaadfa",
+                    func = "#82a7bd",
+                    keyword = "#98aaab",
+                    const = "#aaadfa",
+                    string = "#92b4fc",
+                },
+            })
+        end,
+    },
+    {
         "dgox16/oldworld.nvim",
         name = "oldworld",
         lazy = false,
@@ -32,7 +57,7 @@ return {
     },
     {
         "ficcdaf/ashen.nvim",
-        lazy = false
+        lazy = false,
     },
     {
         "metalelf0/black-metal-theme-neovim",
@@ -55,7 +80,7 @@ return {
         opts = {},
         config = function()
             require("nord").setup({})
-        end
+        end,
     },
     {
         "IroncladDev/osmium",
@@ -72,6 +97,6 @@ return {
         "topazape/oldtale.nvim",
         config = function()
             require("oldtale")
-        end
+        end,
     },
 }
