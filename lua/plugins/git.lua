@@ -1,6 +1,16 @@
 return {
     "tpope/vim-fugitive",
-    cmd = { "G", "Git", "Gedit", "Gsplit", "Gvsplit", "Gtabedit", "Gpedit", "Greview", "Gdiff" },
+    cmd = {
+        "G",
+        "Git",
+        "Gedit",
+        "Gsplit",
+        "Gvsplit",
+        "Gtabedit",
+        "Gpedit",
+        "Greview",
+        "Gdiff",
+    },
     {
         "julienvincent/hunk.nvim",
         cmd = { "DiffEditor" },
@@ -27,13 +37,19 @@ return {
                                 set_jumpable_lines(context)
                                 local row = vim.api.nvim_win_get_cursor(0)[1]
                                 if row < jumpable_lines[1] then
-                                    vim.api.nvim_win_set_cursor(0, { jumpable_lines[1], 0 })
+                                    vim.api.nvim_win_set_cursor(
+                                        0,
+                                        { jumpable_lines[1], 0 }
+                                    )
                                     return
                                 end
                                 for idx = #jumpable_lines, 1, -1 do
                                     if jumpable_lines[idx] <= row then
                                         if jumpable_lines[idx + 1] then
-                                            vim.api.nvim_win_set_cursor(0, { jumpable_lines[idx + 1], 0 })
+                                            vim.api.nvim_win_set_cursor(
+                                                0,
+                                                { jumpable_lines[idx + 1], 0 }
+                                            )
                                         end
                                         return
                                     end
@@ -43,13 +59,19 @@ return {
                                 set_jumpable_lines(context)
                                 local row = vim.api.nvim_win_get_cursor(0)[1]
                                 if row > jumpable_lines[#jumpable_lines] then
-                                    vim.api.nvim_win_set_cursor(0, { jumpable_lines[#jumpable_lines], 0 })
+                                    vim.api.nvim_win_set_cursor(
+                                        0,
+                                        { jumpable_lines[#jumpable_lines], 0 }
+                                    )
                                     return
                                 end
                                 for idx, node_row in ipairs(jumpable_lines) do
                                     if node_row >= row then
                                         if jumpable_lines[idx - 1] then
-                                            vim.api.nvim_win_set_cursor(0, { jumpable_lines[idx - 1], 0 })
+                                            vim.api.nvim_win_set_cursor(
+                                                0,
+                                                { jumpable_lines[idx - 1], 0 }
+                                            )
                                         end
                                         return
                                     end
@@ -62,6 +84,23 @@ return {
         end,
     },
     {
+        "NeogitOrg/neogit",
+        lazy = true,
+        dependencies = {
+            -- Only one of these is needed.
+            "sindrets/diffview.nvim",
+
+            -- For a custom log pager
+            "m00qek/baleia.nvim", -- optional
+
+            "ibhagwan/fzf-lua", -- optional
+        },
+        cmd = "Neogit",
+        keys = {
+            { "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
+        },
+    },
+    {
         "ruifm/gitlinker.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = true,
@@ -69,7 +108,10 @@ return {
             {
                 "<leader>gY",
                 function()
-                    require("gitlinker").get_buf_range_url("n", { add_current_line_on_normal_mode = false })
+                    require("gitlinker").get_buf_range_url(
+                        "n",
+                        { add_current_line_on_normal_mode = false }
+                    )
                 end,
                 mode = { "n", "v" },
                 desc = "Copy git link to current file",
@@ -77,7 +119,10 @@ return {
             {
                 "<leader>gy",
                 function()
-                    require("gitlinker").get_buf_range_url("n", { add_current_line_on_normal_mode = true })
+                    require("gitlinker").get_buf_range_url(
+                        "n",
+                        { add_current_line_on_normal_mode = true }
+                    )
                 end,
                 mode = { "n", "v" },
                 desc = "Copy git link to current line",
@@ -105,14 +150,24 @@ return {
                     vim.keymap.set(mode, l, r, opts)
                 end
 
-                map("n", "<leader>hp", gs.preview_hunk, { desc = "preview hunk" })
+                map(
+                    "n",
+                    "<leader>hp",
+                    gs.preview_hunk,
+                    { desc = "preview hunk" }
+                )
                 map("n", "<leader>b", gs.blame_line, { desc = "blame line" })
                 map("n", "<leader>hd", function()
                     gs.diffthis("~")
                 end, { desc = "diff file" })
                 map({ "n", "v" }, "<leader>s", ":Gitsigns stage_hunk<CR>")
                 map("n", "<leader>r", ":Gitsigns reset_hunk<CR>")
-                map("n", "<leader>u", gs.undo_stage_hunk, { desc = "undo stage hunk" })
+                map(
+                    "n",
+                    "<leader>u",
+                    gs.undo_stage_hunk,
+                    { desc = "undo stage hunk" }
+                )
 
                 map("n", "<leader>hn", function()
                     if vim.wo.diff then

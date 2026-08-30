@@ -13,11 +13,11 @@ return {
                 "build.zig",
                 "venv",
                 "mix.exs",
-                "go.mod"
+                "go.mod",
             },
-            silent_chdir = true,
             show_hidden = true,
-            exclude_dirs = {},
+            -- silent_chdir = true,
+            -- exclude_dirs = {},
         })
 
         pcall(require("fzf-lua").load_extension, "projects")

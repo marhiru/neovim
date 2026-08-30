@@ -59,3 +59,10 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.o.signcolumn = "no"
 vim.opt.termguicolors = true
 vim.opt.list = false
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "rust",
+    callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+    end,
+})

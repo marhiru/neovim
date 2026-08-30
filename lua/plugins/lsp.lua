@@ -42,7 +42,7 @@ return {
         require("mason-tool-installer").setup({
             ensure_installed = {
                 "vtsls",
-                "rust_analyzer",
+                "vls",
                 "ruff",
                 "pyright",
                 "clangd",
@@ -52,7 +52,6 @@ return {
                 "zls",
                 "gopls",
                 "stylua",
-                "prettier",
                 "elp",
             },
             integrations = {
@@ -65,22 +64,7 @@ return {
         require("mason-lspconfig").setup({
             automatic_enable = {
                 "vtsls",
-                "rust_analyzer",
-                "ols",
-                "ruff",
-                "pyright",
-                "clangd",
-                "vue_ls",
-                "zls",
-                "gopls",
-                "expert",
-                "prettier",
-                "elp",
-                "ocamllsp",
-            },
-            ensure_installed = {
-                "vtsls",
-                "rust_analyzer",
+                "vls",
                 "ocamllsp",
                 "ols",
                 "ruff",
@@ -92,12 +76,12 @@ return {
                 "gopls",
                 "stylua",
                 "expert",
-                "prettier",
                 "elp",
             },
             handlers = {
                 function(server_name)
                     require("lspconfig")[server_name].setup({
+                        cmd = { server_name },
                         on_attach = attach,
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
                     })
@@ -315,6 +299,13 @@ return {
                 ocamllsp = function()
                     require("lspconfig").ocamllsp.setup({
                         cmd = { "ocamllsp" },
+                        on_attach = attach,
+                        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                    })
+                end,
+                vls = function()
+                    require("lspconfig").vls.setup({
+                        cmd = { "vls" },
                         on_attach = attach,
                         capabilities = require("cmp_nvim_lsp").default_capabilities(),
                     })

@@ -15,8 +15,8 @@ return {
         enable_diagnostics = true,
         filesystem = {
             follow_current_file = { enabled = true },
-            hijack_netrw_behavior = "open_current",
-            use_libuv_file_watcher = true,
+            -- hijack_netrw_behavior = "open_current",
+            -- use_libuv_file_watcher = true,
         },
         window = {
             position = "current",
@@ -34,7 +34,15 @@ return {
         require("neo-tree").setup({})
     end,
     keys = {
-        { "<leader>e", "<cmd>Neotree toggle reveal position=current<CR>", desc = "Explorer (current window)" },
-        { "<leader>E", "<cmd>Neotree reveal position=current<CR>", desc = "Explorer Reveal (current window)" },
+        {
+            "<leader>e",
+            "<cmd>Neotree toggle reveal position=current<CR>",
+            desc = "Explorer (current window)",
+        },
+        {
+            "<leader>E",
+            "<cmd>Neotree reveal position=current<CR>",
+            desc = "Explorer Reveal (current window)",
+        },
     },
 }

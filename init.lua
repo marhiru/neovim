@@ -1,6 +1,11 @@
 -- ~/.config/neolive/init.lua
 -- Basic Neovim init for neolive config
 -- Uses LazyVim only as package manager (no lazyvim.plugins)
+
+vim.opt.runtimepath:prepend(vim.fn.stdpath("config"))
+
+vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
+
 require("lsp")
 
 -- Basic settings

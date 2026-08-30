@@ -338,13 +338,6 @@ map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
 map("n", "<leader>c", vim.lsp.buf.code_action, { desc = "Source Action" })
 
--- Git (if lazygit is available)
-if vim.fn.executable("lazygit") == 1 then
-    map("n", "<leader>gg", function()
-        vim.cmd("!lazygit")
-    end, { desc = "Lazygit" })
-end
-
 -- Project.nvim
 map("n", "<leader>fp", function()
     vim.cmd("Telescope projects")
